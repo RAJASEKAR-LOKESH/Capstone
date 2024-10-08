@@ -1,0 +1,74 @@
+const mongoose=require("mongoose")
+
+const eventSchema=new mongoose.Schema({
+    title:{type:String,required:true},
+    description:{type:String,required:true},
+    sessions:{type:String,required:true},
+    speakers:{type:String,required:true},
+    date:{type:String,required:true},
+    time:{type:String,required:true},
+    location:{type:String,required:true},
+    price:{type:Number,required:true},
+    total_ticket:{type:Number,required:true},
+    image:{type:String,required:true},
+    gticket:[
+        {
+            user_id:{type:mongoose.Schema.Types.ObjectId,
+                ref:"Users"
+            },
+            user_name:{type:String
+            },
+            ticketBought:{
+                type:Number,
+                default:0
+            },
+            amountPaid:{
+                type:Number,
+                default:0
+            },
+            paymentId:{
+                type:String
+            },
+            date:{type:Date,default:Date(Date.now)
+            }
+        }
+    ],
+    gticket_count:{type:Number,default:0},
+    vticket:[
+        {
+            user_id:{type:mongoose.Schema.Types.ObjectId,
+                ref:"Users"
+            },
+            user_name:{type:String
+            },
+            ticketBought:{
+                type:Number,
+                default:0
+            },
+            amountPaid:{
+                type:Number,
+                default:0
+            },
+            paymentId:{
+                type:String
+            },
+            date:{type:Date,default:Date(Date.now)
+            }
+        }
+    ],
+    vticket_count:{type:Number,default:0},
+    totalTicketSaled:{type:Number,default:0},
+    grevenue:{type:Number,default:0},
+    vrevenue:{type:Number,default:0},
+    total_revenue:{type:Number,default:0},
+    status:{type:String,default:"pending"},
+    registeredBy:
+    { 
+        user_id:{type:mongoose.Schema.Types.ObjectId,
+        ref:"Users"
+    }},
+    
+})
+
+const Events=mongoose.model("Events",eventSchema)
+module.exports=Events
